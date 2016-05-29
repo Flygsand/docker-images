@@ -1,0 +1,8 @@
+[template]
+src = "settings.json.tmpl"
+dest = "/var/lib/transmission/config/settings.json"
+uid = 100
+mode = "0600"
+keys = [
+  "/transmission"
+]

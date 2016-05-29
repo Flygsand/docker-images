@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eo pipefail
+
+mkdir -p /var/lib/transmission/config
+chown transmission /var/lib/transmission/config
+confd -onetime ${CONFD_OPTS:-"-backend=env"}
+exec su-exec transmission /usr/bin/transmission-daemon "$@" \
+  --foreground \
+  --bind-address-ipv4=0.0.0.0 \
+  --bind-address-ipv6=:: \
+  --rpc-bind-address=0.0.0.0 \
+  --port=9001 \
+  --peerport=51413 \
+  --download-dir=/downloads \
+  --incomplete-dir=/incomplete \
+  --config-dir=/var/lib/transmission/config

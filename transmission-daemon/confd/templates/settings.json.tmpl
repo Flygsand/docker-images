@@ -1,0 +1,59 @@
+{
+  "alt-speed-down": {{getv "/transmission/alt/speed/down" "50"}},
+  "alt-speed-enabled": {{getv "/transmission/alt/speed/enabled" "false"}},
+  "alt-speed-time-begin": {{getv "/transmission/alt/speed/time/begin" "540"}},
+  "alt-speed-time-day": {{getv "/transmission/alt/speed/time/day" "127"}},
+  "alt-speed-time-enabled": {{getv "/transmission/alt/speed/time/enabled" "false"}},
+  "alt-speed-time-end": {{getv "/transmission/alt/speed/time/end" "1020"}},
+  "alt-speed-up": {{getv "/transmission/alt/speed/up" "50"}},
+  "blocklist-enabled": {{getv "/transmission/blocklist/enabled" "false"}},
+  "blocklist-url": "{{getv "/transmission/blocklist/url" "http://www.example.com/blocklist"}}",
+  "cache-size-mb": {{getv "/transmission/cache/size/mb" "4"}},
+  "dht-enabled": {{getv "/transmission/dht/enabled" "true"}},
+  "download-queue-enabled": {{getv "/transmission/download/queue/enabled" "true"}},
+  "download-queue-size": {{getv "/transmission/download/queue/size" "5"}},
+  "encryption": {{getv "/transmission/encryption" "1"}},
+  "idle-seeding-limit": {{getv "/transmission/idle/seeding/limit" "30"}},
+  "idle-seeding-limit-enabled": {{getv "/transmission/idle/seeding/limit/enabled" "false"}},
+  "incomplete-dir-enabled": {{getv "/transmission/incomplete/dir/enabled" "false"}},
+  "lpd-enabled": {{getv "/transmission/lpd/enabled" "false"}},
+  "message-level": {{getv "/transmission/message/level" "2"}},{{if exists "/transmission/peer/congestion/algorithm"}}
+  "peer-congestion-algorithm": "{{getv "/transmission/peer/congestion/algorithm"}}",{{end}}
+  "peer-id-ttl-hours": {{getv "/transmission/peer/id/ttl/hours" "6"}},
+  "peer-limit-global": {{getv "/transmission/peer/limit/global" "200"}},
+  "peer-limit-per-torrent": {{getv "/transmission/peer/limit/per/torrent" "50"}},
+  "peer-port-random-high": {{getv "/transmission/peer/port/random/high" "65535"}},
+  "peer-port-random-low": {{getv "/transmission/peer/port/random/low" "49152"}},
+  "peer-port-random-on-start": {{getv "/transmission/peer/port/random/on/start" "false"}},
+  "peer-socket-tos": "{{getv "/transmission/peer/socket/tos" "default"}}",
+  "pex-enabled": {{getv "/transmission/pex/enabled" "true"}},
+  "port-forwarding-enabled": {{getv "/transmission/port/forwarding/enabled" "true"}},
+  "preallocation": {{getv "/transmission/preallocation" "1"}},
+  "prefetch-enabled": {{getv "/transmission/prefetch/enabled" "true"}},
+  "queue-stalled-enabled": {{getv "/transmission/queue/stalled/enabled" "true"}},
+  "queue-stalled-minutes": {{getv "/transmission/queue/stalled/minutes" "30"}},
+  "ratio-limit": {{getv "/transmission/ratio/limit" "2"}},
+  "ratio-limit-enabled": {{getv "/transmission/ratio/limit/enabled" "false"}},
+  "rename-partial-files": {{getv "/transmission/rename/partial/files" "true"}},
+  "rpc-authentication-required": {{getv "/transmission/rpc/authentication/required" "false"}},
+  "rpc-enabled": {{getv "/transmission/rpc/enabled" "true"}},{{if exists "/transmission/rpc/password"}}
+  "rpc-password": "{{getv "/transmission/rpc/password"}}",{{end}}
+  "rpc-url": "{{getv "/transmission/rpc/url" "/transmission/"}}",{{if exists "/transmission/rpc/username"}}
+  "rpc-username": "{{getv "/transmission/rpc/username"}}",{{end}}
+  "rpc-whitelist": "{{getv "/transmission/rpc/whitelist" "127.0.0.1"}}",
+  "rpc-whitelist-enabled": {{getv "/transmission/rpc/whitelist/enabled" "true"}},
+  "scrape-paused-torrents-enabled": {{getv "/transmission/scrape/paused/torrents/enabled" "true"}},
+  "script-torrent-done-enabled": {{getv "/transmission/script/torrent/done/enabled" "false"}},{{if exists "/transmission/script/torrent/done/filename"}}
+  "script-torrent-done-filename": "{{getv "/transmission/script/torrent/done/filename"}}",{{end}}
+  "seed-queue-enabled": {{getv "/transmission/seed/queue/enabled" "false"}},
+  "seed-queue-size": {{getv "/transmission/seed/queue/size" "10"}},
+  "speed-limit-down": {{getv "/transmission/speed/limit/down" "100"}},
+  "speed-limit-down-enabled": {{getv "/transmission/speed/limit/down/enabled" "false"}},
+  "speed-limit-up": {{getv "/transmission/speed/limit/up" "100"}},
+  "speed-limit-up-enabled": {{getv "/transmission/speed/limit/up/enabled" "false"}},
+  "start-added-torrents": {{getv "/transmission/start/added/torrents" "true"}},
+  "trash-original-torrent-files": {{getv "/transmission/trash/original/torrent/files" "false"}},
+  "umask": {{getv "/transmission/umask" "18"}},
+  "upload-slots-per-torrent": {{getv "/transmission/upload/slots/per/torrent" "14"}},
+  "utp-enabled": {{getv "/transmission/utp/enabled" "true"}}
+}
