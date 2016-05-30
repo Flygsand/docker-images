@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -eo pipefail
+
+chown plex:plex /var/lib/plexmediaserver
+tail -F "/var/lib/plexmediaserver/Library/Logs/Plex Media Server/Plex Media Server.log" 2>/dev/null &
+export LD_LIBRARY_PATH=/usr/lib/plexmediaserver
+exec gosu plex "/usr/lib/plexmediaserver/Plex Media Server" "$@"
