@@ -1,0 +1,67 @@
+Version = 1.6.3
+
+LoadModule = webadmin
+{{range ls "/znc/module" -}}
+LoadModule = {{.}}
+{{end}}
+
+<Listener irc>
+  AllowWeb = false
+  IPv4 = true
+  IPv6 = true
+  SSL = false
+  Port = 6667
+</Listener>
+
+<Listener sirc>
+  AllowWeb = false
+  IPv4 = true
+  IPv6 = true
+  SSL = true
+  Port = 6697
+</Listener>
+
+<Listener web>
+  AllowIRC = false
+  IPv4 = true
+  IPv6 = true
+  SSL = false
+  Port = 8080
+</Listener>
+
+{{range $u := lsdir "/znc/user" -}}
+<User {{$u}}>
+  Admin = {{getv (printf "/znc/user/%s/admin" $u) "false"}}
+  {{with getv (printf "/znc/user/%s/nick" $u) $u -}}
+  Nick = {{.}}
+  AltNick = {{getv (printf "/znc/user/%s/altnick" $u) (printf "%s_" .)}}
+  {{end}}
+
+  {{range ls (printf "/znc/user/%s/module" $u) -}}
+  LoadModule = {{.}}
+  {{end}}
+
+  <Pass password>
+    Hash = {{getv (printf "/znc/user/%s/pass/hash" $u)}}
+    Salt = {{getv (printf "/znc/user/%s/pass/salt" $u)}}
+    Method = {{getv (printf "/znc/user/%s/pass/method" $u) "sha256"}}
+  </Pass>
+
+  {{range $n := lsdir (printf "/znc/user/%s/network" $u) -}}
+  <Network {{$n}}>
+    {{if exists (printf "/znc/user/%s/network/%s/nick" $u $n) -}}
+    {{with getv (printf "/znc/user/%s/network/%s/nick" $u $n) -}}
+    Nick = {{.}}
+    AltNick = {{getv (printf "/znc/user/%s/network/%s/altnick" $u $n) (printf "%s_" .)}}
+    {{end}}
+    {{end}}
+
+    {{range $c := lsdir (printf "/znc/user/%s/network/%s/chan" $u $n)}}
+    <Chan {{getv (printf "/znc/user/%s/network/%s/chan/%s/name" $u $n $c)}}>
+
+    </Chan>
+    {{end}}
+  </Network>
+  {{end}}
+</User>
+{{end}}

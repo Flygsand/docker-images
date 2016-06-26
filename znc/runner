@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p /var/lib/znc/configs
+confd -onetime ${CONFD_OPTS:--backend env}
+znc -p -d /var/lib/znc
+exec znc -f -d /var/lib/znc

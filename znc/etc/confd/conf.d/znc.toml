@@ -1,0 +1,6 @@
+[template]
+src = "znc.conf.tmpl"
+dest = "/var/lib/znc/configs/znc.conf"
+keys = [
+  "/znc"
+]
