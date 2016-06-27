@@ -1,6 +1,8 @@
 #!/bin/sh
 
-mkdir -p /var/lib/znc/configs
-confd -onetime ${CONFD_OPTS:--backend env}
+if [[ ! -f /var/lib/znc/configs/znc.conf ]]; then
+  mkdir -p /var/lib/znc/configs
+  confd -onetime ${CONFD_OPTS:--backend env}
+fi
 znc -p -d /var/lib/znc
 exec znc -f -d /var/lib/znc
