@@ -2,10 +2,19 @@
 
 set -eo pipefail
 
-mkdir -p /var/lib/transmission/config
-chown transmission /var/lib/transmission/config
+TRANSMISSION_UID=${TRANSMISSION_UID:-1337}
+TRANSMISSION_GID=${TRANSMISSION_GID:-1337}
+
+addgroup -g $TRANSMISSION_GID transmission
+adduser -D -g "Transmission BitTorrent Client Daemon" -G transmission -u $TRANSMISSION_UID -h /var/lib/transmission transmission
+mkdir -p /var/lib/transmission/config /incomplete /downloads
+chown transmission:transmission /var/lib/transmission /var/lib/transmission/config /incomplete /downloads
+
+sed -i "/^uid=/{h;s/=.*/=$TRANSMISSION_UID/};\${x;/^$/{s//uid=$TRANSMISSION_UID/;H};x}" /etc/confd/conf.d/settings.json.toml
+sed -i "/^gid=/{h;s/=.*/=$TRANSMISSION_GID/};\${x;/^$/{s//gid=$TRANSMISSION_GID/;H};x}" /etc/confd/conf.d/settings.json.toml
+
 confd -onetime ${CONFD_OPTS:-"-backend=env"}
-exec su-exec transmission /usr/bin/transmission-daemon "$@" \
+exec su-exec transmission:transmission /usr/bin/transmission-daemon "$@" \
   --foreground \
   --bind-address-ipv4=0.0.0.0 \
   --bind-address-ipv6=:: \
