@@ -7,8 +7,7 @@ RUN apt-get -y update \
  && wget -O /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/1.9/gosu-amd64 \
  && chmod +x /usr/local/bin/gosu \
  && dpkg -i /tmp/plexmediaserver*.deb \
- && mkdir /data \
- && chown plex:plex /data \
+ && deluser plex \
  && apt-get -y purge wget \
  && apt-get -y autoremove \
  && apt-get -y clean \
