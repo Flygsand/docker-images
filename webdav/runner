@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eo pipefail
+
+WEBDAV_UID=${WEBDAV_UID:-1337}
+WEBDAV_GID=${WEBDAV_GID:-1337}
+
+if [ ! -d /dav ]; then
+  echo "error: /dav must be mounted" >&2
+  exit 2
+fi
+
+addgroup -Sg $WEBDAV_GID webdav
+adduser -Su $WEBDAV_UID -G webdav webdav
+mkdir -p /usr/local/apache2/var
+chown webdav:webdav /dav /usr/local/apache2/var
+exec httpd-foreground
