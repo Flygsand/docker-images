@@ -7,8 +7,8 @@ TRANSMISSION_GID=${TRANSMISSION_GID:-1337}
 
 addgroup -g $TRANSMISSION_GID transmission
 adduser -D -g "Transmission BitTorrent Client Daemon" -G transmission -u $TRANSMISSION_UID -h /var/lib/transmission transmission
-mkdir -p /var/lib/transmission/config /incomplete /downloads
-chown transmission:transmission /var/lib/transmission /var/lib/transmission/config /incomplete /downloads
+mkdir -p /var/lib/transmission/config /downloads
+chown transmission:transmission /var/lib/transmission /var/lib/transmission/config /downloads
 
 sed -i "/^uid=/{h;s/=.*/=$TRANSMISSION_UID/};\${x;/^$/{s//uid=$TRANSMISSION_UID/;H};x}" /etc/confd/conf.d/settings.json.toml
 sed -i "/^gid=/{h;s/=.*/=$TRANSMISSION_GID/};\${x;/^$/{s//gid=$TRANSMISSION_GID/;H};x}" /etc/confd/conf.d/settings.json.toml
@@ -22,5 +22,5 @@ exec su-exec transmission:transmission /usr/bin/transmission-daemon "$@" \
   --port=9001 \
   --peerport=51413 \
   --download-dir=/downloads \
-  --incomplete-dir=/incomplete \
+  --no-incomplete-dir \
   --config-dir=/var/lib/transmission/config
